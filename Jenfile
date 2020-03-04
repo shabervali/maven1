@@ -21,7 +21,7 @@ pipeline
         {
             steps
             {
-                sh label: '', script: 'scp  /home/ubuntu/.jenkins/workspace/Dpipeline/webapp/target/webapp.war ubuntu@172.31.5.139:/var/lib/tomcat8/webapps/shaber.war'
+                sh label: '', script: 'scp  /home/ubuntu/.jenkins/workspace/Dpipeline/webapp/target/webapp.war ubuntu@172.31.5.139:/var/lib/tomcat8/webapps/multi2.war'
             }
         }
         stage('ContinuousTesting_loans')
@@ -39,7 +39,7 @@ pipeline
    {
        success
        {
-          sh label: '', script: 'scp  /home/ubuntu/.jenkins/workspace/Dpipeline/webapp/target/webapp.war ubuntu@172.31.35.225:/var/lib/tomcat8/webapps/vali.war'
+          sh label: '', script: 'scp  /home/ubuntu/.jenkins/workspace/Dpipeline/webapp/target/webapp.war ubuntu@172.31.35.225:/var/lib/tomcat8/webapps/multi22.war'
 
        }
        failure
