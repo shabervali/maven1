@@ -1,0 +1,50 @@
+pipeline
+{
+    agent any
+    stages
+    {
+        stage('ContinuouDownload')
+        {
+            steps
+            {
+               git 'https://github.com/shabervali/maven1.git' 
+            }
+        }
+        stage('ContinuousBuild')
+        {
+            steps
+            {
+                sh label: '', script: 'mvn package'
+            }
+        }
+        stage('ContinuousDeploy')
+        {
+            steps
+            {
+                sh label: '', script: 'scp  /home/ubuntu/.jenkins/workspace/Dpipeline/webapp/target/webapp.war ubuntu@172.31.5.139:/var/lib/tomcat8/webapps/shaber.war'
+            }
+        }
+        stage('ContinuousTesting')
+        {
+            steps
+            {
+                git 'https://github.com/shabervali/testing.git'
+                sh label: '', script: 'java -jar  /home/ubuntu/.jenkins/workspace/Dpipeline/testing.jar'
+            }
+        }
+       
+        
+   }
+   post
+   {
+       success
+       {
+          sh label: '', script: 'scp  /home/ubuntu/.jenkins/workspace/Dpipeline/webapp/target/webapp.war ubuntu@172.31.35.225:/var/lib/tomcat8/webapps/vali.war'
+
+       }
+       failure
+       {
+           mail bcc: '', body: 'jenkins failed', cc: '', from: '', replyTo: '', subject: 'Jenkins failed', to: 'shabervali006@gmail.com'
+       }
+   }
+}
