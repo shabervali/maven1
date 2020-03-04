@@ -3,28 +3,28 @@ pipeline
     agent any
     stages
     {
-        stage('ContinuouDownload')
+        stage('ContinuouDownload_loans')
         {
             steps
             {
                git 'https://github.com/shabervali/maven1.git' 
             }
         }
-        stage('ContinuousBuild')
+        stage('ContinuousBuild_loans')
         {
             steps
             {
                 sh label: '', script: 'mvn package'
             }
         }
-        stage('ContinuousDeploy')
+        stage('ContinuousDeploy_loans')
         {
             steps
             {
                 sh label: '', script: 'scp  /home/ubuntu/.jenkins/workspace/Dpipeline/webapp/target/webapp.war ubuntu@172.31.5.139:/var/lib/tomcat8/webapps/shaber.war'
             }
         }
-        stage('ContinuousTesting')
+        stage('ContinuousTesting_loans')
         {
             steps
             {
